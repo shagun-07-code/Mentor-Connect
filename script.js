@@ -1,4 +1,4 @@
-// Simple mentor search filter
+
 function filterMentors() {
   const input = document.getElementById("searchInput").value.toLowerCase();
   const mentorCards = document.getElementsByClassName("mentor-card");
@@ -22,10 +22,11 @@ function validateLogin(event) {
 
   if (email === savedUser.email && password === savedUser.password) {
     alert(`Welcome back, ${savedUser.name}!`);
-    window.location.href = "mentors.html"; // redirect after login
+    window.location.href = "mentors.html"; 
   } else {
     alert("Invalid email or password. Please try again.");
   }
 
   return false;
 }
+
