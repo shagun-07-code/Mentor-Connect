@@ -147,7 +147,6 @@
   </footer>
 
   <script>
-    // Store form inputs and redirect
     document.getElementById("mentorSearchForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
@@ -159,12 +158,13 @@
         return;
       }
 
-      // Save to localStorage
+    
       localStorage.setItem("searchData", JSON.stringify({ skills, domain }));
 
-      // Redirect to mentors page
+      
       window.location.href = "mentors.html";
     });
   </script>
 </body>
 </html>
+
