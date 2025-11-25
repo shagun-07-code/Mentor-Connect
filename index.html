@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentors Connect | Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #f7f4f8;
+    }
+
+    header {
+      background-color: #4a0072;
+      color: white;
+      padding: 15px 40px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hero {
+      text-align: center;
+      background: linear-gradient(135deg, #4a0072, #8e2de2);
+      color: white;
+      padding: 100px 20px;
+    }
+
+    .btn {
+      background-color: white;
+      color: #4a0072;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      background-color: #f0e6ff;
+    }
+
+    .find-mentor-form {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .find-mentor-form h2 {
+      color: #4a0072;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #4a0072;
+    }
+
+    footer {
+      background-color: #4a0072;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">Mentors Connect</h2>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="all mentor.html">All Mentors</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Find the Perfect Mentor for Your Goals</h1>
+    <p>AI-powered matching to help you connect, learn, and grow.</p>
+  </section>
+
+  <section class="find-mentor-form">
+    <h2>Find Your Mentor</h2>
+    <form id="mentorSearchForm">
+      <div class="form-group">
+        <input type="text" id="skills" placeholder="Enter your skills (e.g., HTML, Python)" required>
+        <select id="domain" required>
+          <option value="">Select Domain</option>
+          <option value="Web Development">Web Development</option>
+          <option value="AI">Artificial Intelligence</option>
+          <option value="Data Science">Data Science</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Machine Learning">Machine Learning</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Find Mentor</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Mentors Connect | Contact: info@mentorsconnect.com</p>
+  </footer>
+
+  <script>
+    // Store form inputs and redirect
+    document.getElementById("mentorSearchForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const skills = document.getElementById("skills").value.trim().toLowerCase();
+      const domain = document.getElementById("domain").value.trim().toLowerCase();
+
+      if (!skills || !domain) {
+        alert("⚠️ Please enter both skills and domain.");
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem("searchData", JSON.stringify({ skills, domain }));
+
+      // Redirect to mentors page
+      window.location.href = "mentors.html";
+    });
+  </script>
+</body>
+</html>

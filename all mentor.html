@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Mentors | Mentors Connect</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #2e006c;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4a0072;
+      color: white;
+      padding: 15px 40px;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Mentor list styling */
+    .mentor-list {
+      padding: 40px;
+    }
+
+    .mentor-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f7f4f8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .mentor-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .mentor-left img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .mentor-info h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #2a0080;
+    }
+
+    .mentor-info p {
+      margin: 3px 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .mentor-right {
+      text-align: right;
+    }
+
+    .btn {
+      background-color: #4a00e0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background-color: #3500a0;
+    }
+
+    footer {
+      background-color: #4a0072;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    h2.title {
+      color: white;
+      text-align: center;
+      margin-top: 25px;
+      font-size: 28px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">Mentors Connect</h2>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mentors.html">Find Mentor</a></li>
+        <li><a href="all-mentors.html" class="active">All Mentors</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h2 class="title">Meet All Our Mentors</h2>
+  <section class="mentor-list" id="mentorList"></section>
+
+  <footer>
+    <p>© 2025 Mentors Connect | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // --- 15 mentors data ---
+    const mentors = [
+      { name: "Dr. Fahima", verified: true, photo: "https://randomuser.me/api/portraits/women/65.jpg", expertise: "HTML, CSS, JavaScript, React, Node.js", domain: "Web Development", experience: "5+ years", description: "Expert in full-stack web development and mentoring.", languages: "English, Hindi" },
+      { name: "Dr. Andrew Mathes", verified: false, photo: "https://randomuser.me/api/portraits/men/70.jpg", expertise: "Frontend Development, React, Vue", domain: "Web Development", experience: "8 years", description: "Helps students with frontend and UI design.", languages: "English, Bengali" },
+      { name: "Dr. Subajita Das", verified: true, photo: "https://randomuser.me/api/portraits/women/72.jpg", expertise: "AI, Machine Learning, Deep Learning", domain: "AI", experience: "6 years", description: "Passionate about AI and ML mentorship.", languages: "English, Hindi" },
+      { name: "Mr. Raj Malhotra", verified: false, photo: "https://randomuser.me/api/portraits/men/45.jpg", expertise: "Data Science, Machine Learning", domain: "Data Science", experience: "7 years", description: "Specialist in data analysis and ML.", languages: "English, Hindi" },
+      { name: "Ms. Aditi Sharma", verified: false, photo: "https://randomuser.me/api/portraits/women/22.jpg", expertise: "Cybersecurity, Ethical Hacking", domain: "Cybersecurity", experience: "5 years", description: "Focuses on practical cybersecurity projects.", languages: "English, Hindi" },
+      { name: "Dr. Neha Rathi", verified: true, photo: "https://randomuser.me/api/portraits/women/55.jpg", expertise: "Cloud Computing, AWS, Azure", domain: "Cloud Computing", experience: "10 years", description: "Expert in AWS and Azure deployments.", languages: "English" },
+      { name: "Mr. Rohan Patel", verified: false, photo: "https://randomuser.me/api/portraits/men/20.jpg", expertise: "Python, Django, Flask", domain: "Backend Development", experience: "6 years", description: "Teaches backend frameworks and APIs.", languages: "English, Gujarati" },
+      { name: "Ms. Sneha Kapoor", verified: false, photo: "https://randomuser.me/api/portraits/women/33.jpg", expertise: "Database Design, SQL, MongoDB", domain: "Database Systems", experience: "4 years", description: "Helps students design efficient databases.", languages: "English, Hindi" },
+      { name: "Dr. Kavita Menon", verified: true, photo: "https://randomuser.me/api/portraits/women/40.jpg", expertise: "Mobile App Development, Flutter", domain: "App Development", experience: "5 years", description: "Guides on Flutter and cross-platform apps.", languages: "English, Hindi" },
+      { name: "Mr. Yash Mehta", verified: false, photo: "https://randomuser.me/api/portraits/men/32.jpg", expertise: "DevOps, CI/CD, Docker, Kubernetes", domain: "DevOps", experience: "8 years", description: "DevOps engineer mentoring CI/CD pipelines.", languages: "English, Hindi" },
+      { name: "Dr. Ayesha Khan", verified: true, photo: "https://randomuser.me/api/portraits/women/50.jpg", expertise: "AI Ethics, Data Governance", domain: "AI", experience: "9 years", description: "Focuses on ethical AI and data governance.", languages: "English, Urdu" },
+      { name: "Mr. Arjun Sharma", verified: false, photo: "https://randomuser.me/api/portraits/men/53.jpg", expertise: "C++, Java, Data Structures", domain: "Programming", experience: "6 years", description: "Teaches coding fundamentals and DSA.", languages: "English, Hindi" },
+      { name: "Ms. Priya Desai", verified: true, photo: "https://randomuser.me/api/portraits/women/19.jpg", expertise: "UI/UX Design, Figma, Adobe XD", domain: "Design", experience: "3 years", description: "Mentors UI/UX projects and design tools.", languages: "English, Marathi" },
+      { name: "Mr. Karan Verma", verified: false, photo: "https://randomuser.me/api/portraits/men/71.jpg", expertise: "Blockchain, Smart Contracts", domain: "Blockchain", experience: "5 years", description: "Works on blockchain and web3 development.", languages: "English, Hindi" },
+      { name: "Ms. Isha Gupta", verified: true, photo: "https://randomuser.me/api/portraits/women/26.jpg", expertise: "AI, NLP, Chatbots", domain: "AI", experience: "6 years", description: "Guides students in building intelligent bots.", languages: "English, Hindi" }
+    ];
+
+    const container = document.getElementById("mentorList");
+
+    function displayMentors(list) {
+      container.innerHTML = "";
+      list.forEach((mentor, index) => {
+        const card = document.createElement("div");
+        card.className = "mentor-card";
+        card.innerHTML = `
+          <div class="mentor-left">
+            <img src="${mentor.photo}" alt="${mentor.name}">
+            <div class="mentor-info">
+              <h3>${mentor.name} ${mentor.verified ? "✅" : ""}</h3>
+              <p><strong>Expertise:</strong> ${mentor.expertise}</p>
+              <p>${mentor.description}</p>
+            </div>
+          </div>
+          <div class="mentor-right">
+            <p>Languages: ${mentor.languages}</p>
+            <button class="btn" onclick="viewMentor(${index})">View</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function viewMentor(index) {
+      localStorage.setItem("selectedMentor", JSON.stringify(mentors[index]));
+      window.location.href = "mentor profile.html";
+    }
+
+    // Display all mentors
+    displayMentors(mentors);
+  </script>
+</body>
+</html>

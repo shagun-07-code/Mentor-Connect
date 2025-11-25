@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Mentors | Mentors Connect</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #2e006c;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4a0072;
+      color: white;
+      padding: 15px 40px;
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .mentor-list {
+      padding: 40px;
+    }
+
+    .mentor-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f7f4f8;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .mentor-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .mentor-left img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .mentor-info h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #2a0080;
+    }
+
+    .mentor-info p {
+      margin: 3px 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .mentor-right {
+      text-align: right;
+    }
+
+    .btn {
+      background-color: #4a00e0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background-color: #3500a0;
+    }
+
+    footer {
+      background-color: #4a0072;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    h2.filter-title {
+      color: white;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">Mentors Connect</h2>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mentors.html">Find Mentor</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="all mentor.html">All Mentors</a></li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <h2 class="filter-title">Available Mentors</h2>
+  <section class="mentor-list" id="mentorList"></section>
+
+  <footer>
+    <p>© 2025 Mentors Connect | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    const mentors = [
+      { name: "Dr. Fahima", verified: true, photo: "https://randomuser.me/api/portraits/women/65.jpg", expertise: "HTML, CSS, JavaScript, React, Node.js", domain: "web development", experience: "5+ years", description: "Innovative teaching methods including project-based learning.", languages: "English, Hindi" },
+      { name: "Dr. Andrew Mathes", verified: false, photo: "https://randomuser.me/api/portraits/men/70.jpg", expertise: "Web Development, Consulting", domain: "web development", experience: "8 years", description: "Guidance in hackathons and coding events.", languages: "English, Hindi, Bengali" },
+      { name: "Mr. Raj Malhotra", verified: false, photo: "https://randomuser.me/api/portraits/men/45.jpg", expertise: "Data Science, AI, Machine Learning", domain: "data science", experience: "7 years", description: "Expert in ML and data visualization.", languages: "English, Hindi, Punjabi" },
+      { name: "Ms. Aditi Sharma", verified: false, photo: "https://randomuser.me/api/portraits/women/22.jpg", expertise: "Cybersecurity, Ethical Hacking", domain: "cybersecurity", experience: "5 years", description: "Focuses on practical security learning.", languages: "English, Hindi" },
+      { name: "Dr. Subajita Das", verified: true, photo: "https://randomuser.me/api/portraits/women/72.jpg", expertise: "AI, Machine Learning, Deep Learning", domain: "ai", experience: "6 years", description: "Passionate about AI projects and student mentoring.", languages: "English, Hindi" }
+    ];
+
+    const container = document.getElementById("mentorList");
+    const searchData = JSON.parse(localStorage.getItem("searchData"));
+
+    function displayMentors(list) {
+      container.innerHTML = "";
+      if (list.length === 0) {
+        container.innerHTML = "<h3 style='color:white;text-align:center;'>No mentors found matching your criteria.</h3>";
+        return;
+      }
+      list.forEach((mentor, index) => {
+        const card = document.createElement("div");
+        card.className = "mentor-card";
+        card.innerHTML = `
+          <div class="mentor-left">
+            <img src="${mentor.photo}" alt="${mentor.name}">
+            <div class="mentor-info">
+              <h3>${mentor.name} ${mentor.verified ? "✅" : ""}</h3>
+              <p><strong>Expertise:</strong> ${mentor.expertise}</p>
+              <p>${mentor.description}</p>
+            </div>
+          </div>
+          <div class="mentor-right">
+            <p>Languages: ${mentor.languages}</p>
+            <button class="btn" onclick="viewMentor(${index})">View</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function viewMentor(index) {
+      localStorage.setItem("selectedMentor", JSON.stringify(mentors[index]));
+      window.location.href = "mentor profile.html";
+    }
+
+ if (searchData) {
+  const filtered = mentors.filter(m => {
+    const skills = searchData.skills.toLowerCase();
+    const domain = searchData.domain.toLowerCase();
+
+    return (
+      m.domain.toLowerCase().includes(domain) ||
+      m.expertise.toLowerCase().includes(domain) ||
+      m.expertise.toLowerCase().includes(skills) ||
+      skills.split(" ").some(skill => m.expertise.toLowerCase().includes(skill))
+    );
+  });
+
+  displayMentors(filtered);
+} else {
+  displayMentors(mentors);
+}
+
+  </script>
+</body>
+</html>
